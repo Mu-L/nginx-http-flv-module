@@ -7,6 +7,7 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <nginx.h>
+#include <ngx_http.h>
 #include "ngx_rtmp_play_module.h"
 #include "ngx_rtmp_cmd_module.h"
 #include "ngx_rtmp_netcall_module.h"
@@ -697,6 +698,14 @@ ngx_rtmp_play_play(ngx_rtmp_session_t *s, ngx_rtmp_play_t *v)
     ngx_str_t                      *pfx, *sfx;
     ngx_str_t                       name;
     ngx_uint_t                      n;
+    ngx_http_request_t             *r;
+
+    r = s->data;
+    if (r) {
+        ngx_log_error(NGX_LOG_INFO, s->connection->log, 0,
+                      "play: skipping live request");
+        goto next;
+    }
 
     pmcf = ngx_rtmp_get_module_main_conf(s, ngx_rtmp_play_module);
 
