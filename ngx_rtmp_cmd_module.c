@@ -182,7 +182,7 @@ ngx_rtmp_cmd_connect_init(ngx_rtmp_session_t *s, ngx_rtmp_header_t *h,
             ngx_log_error(NGX_LOG_WARN, s->connection->log, 0,
                           "connect: rtmps tcUrl received: %s", v.tc_url);
 
-            ngx_memmove(v.tc_url + 4, v.tc_url + 5, ngx_strlen(v.tc_url) - 5);
+            ngx_memmove(v.tc_url + 4, v.tc_url + 5, ngx_strlen(v.tc_url) - 4);
         }
     }
 
